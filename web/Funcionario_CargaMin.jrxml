@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Funcionario_CargaMin" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rhindo"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="f.mes" class="java.lang.Integer"/>
+	<parameter name="f.ano" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select f.mes, f.ano, fu.nomeFuncionario, c.cargaMinima, f.horasTrabalhadas 
+from Funcionario fu
+inner join Folha f on f.idFuncionario = fu.idFuncionario
+inner join Cargo c on c.idCargo = fu.idCargo
+where f.horasTrabalhadas < c.cargaMinima
+and f.mes =  $P{f.mes} 
+and f.ano =  $P{f.ano}]]>
+	</queryString>
+	<field name="mes" class="java.lang.Long"/>
+	<field name="ano" class="java.lang.Long"/>
+	<field name="nomeFuncionario" class="java.lang.String"/>
+	<field name="cargaMinima" class="java.lang.Long"/>
+	<field name="horasTrabalhadas" class="java.lang.Long"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#000000"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[RHINDO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="10" y="66" width="545" height="29"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Horas trabalhadas por cada funcionario]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="555" height="32" forecolor="#000000" backcolor="#CC0000"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="390" y="6" width="144" height="20" forecolor="#FFFFFF"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="-20" y="0" width="595" height="53"/>
+				<staticText>
+					<reportElement x="30" y="30" width="143" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome Funcinario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="177" y="30" width="150" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Carga Minima]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="327" y="31" width="133" height="19"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horas Trabalhadas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="30" y="0" width="36" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Mes]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="66" y="2" width="54" height="16"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="154" y="0" width="36" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ano]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="190" y="0" width="62" height="21"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="147" height="30"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nomeFuncionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="150" height="30"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cargaMinima}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="130" height="30"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{horasTrabalhadas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
