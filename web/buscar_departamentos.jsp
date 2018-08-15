@@ -26,14 +26,14 @@
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                   <div class="navbar-header">
-                    <a class="navbar-brand" href="/RHINDO/manter_funcionarios.jsp"><img src="/RHINDO/css/logo0.png"style="width: 76%; margin: -1vh"></a>
+                    <a class="navbar-brand" href="/RHACTS/manter_funcionarios.jsp"><img src="/RHACTS/css/logo0.png"style="width: 76%; margin: -1vh"></a>
                   </div>
                   <ul class="nav navbar-nav">
-                    <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
-                    <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
-                    <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
-                    <li><a href="/RHINDO/manter_folhas.jsp">Folhas</a></li>
-                    <li><a href="/RHINDO/RelatoriosGerente">Relatórios</a></li>
+                    <li><a href="/RHACTS/manter_funcionarios.jsp">Funcionários</a></li>
+                    <li><a href="/RHACTS/manter_departamentos.jsp">Departamentos</a></li>
+                    <li><a href="/RHACTS/manter_cargos.jsp">Cargos</a></li>
+                    <li><a href="/RHACTS/manter_folhas.jsp">Folhas</a></li>
+                    <li><a href="/RHACTS/RelatoriosGerente">Relatórios</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -41,7 +41,7 @@
                             Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
                         </div>
                     </li>
-                    <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                    <li><a href="/RHACTS/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                   </ul>
                 </div>
             </nav>

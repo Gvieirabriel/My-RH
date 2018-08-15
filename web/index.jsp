@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
-        <title>RH-INDO</title>
+        <title>RH-Acts</title>
     </head>
     <body style="height: 100%;">
         <center style="background-image: url(css/office1.jpg); background-size: 100%; background-position: center; height: 100%;">
@@ -20,7 +20,7 @@
                 </br></br>
                 <img src="css/logo.png" style="width: 80%">
                 </br>
-                <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post">
+                <form action="http://localhost:8080/RHACTS/ProcessaLogin" method="post">
                     <div align="center" class="form-group jumbotron">
                         Email:<input class="form-control" type="text" name="email" id="email"><br/>
                         Senha:<input class="form-control" type="password" name="senha" id="senha"><br/>

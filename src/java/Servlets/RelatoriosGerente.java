@@ -64,7 +64,7 @@ public class RelatoriosGerente extends HttpServlet {
             Connection con = null;
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/RHACTS", "root", "1q2w3e4r5");
                 String jasper = request.getContextPath() + "/Todo_funcionarios.jasper";
                 String host = "http://" + request.getServerName() + ":" + request.getServerPort();
                 URL jasperURL = new URL(host + jasper);
@@ -93,7 +93,7 @@ public class RelatoriosGerente extends HttpServlet {
             Connection con = null;
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/RHACTS", "root", "1q2w3e4r5");
                 String jasper = request.getContextPath() + "/Horas_Departamento.jasper";
                 String host = "http://" + request.getServerName() + ":" + request.getServerPort();
                 URL jasperURL = new URL(host + jasper);
@@ -125,7 +125,7 @@ public class RelatoriosGerente extends HttpServlet {
             Connection con = null;
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/RHACTS", "root", "1q2w3e4r5");
                 String jasper = request.getContextPath() + "/Funcionario_CargaMin.jasper";
                 String host = "http://" + request.getServerName() + ":" + request.getServerPort();
                 URL jasperURL = new URL(host + jasper);

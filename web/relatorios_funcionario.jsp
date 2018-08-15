@@ -30,10 +30,10 @@
                 <nav class="navbar navbar-inverse">
                     <div class="container-fluid">
                       <div class="navbar-header">
-                        <a class="navbar-brand" href="/RHINDO/Relatorios">RH-INDO</a>
+                        <a class="navbar-brand" href="/RHACTS/Relatorios">RH-INDO</a>
                       </div>
                       <ul class="nav navbar-nav">
-                        <li><a href="/RHINDO/Relatorios">Relatórios</a></li>
+                        <li><a href="/RHACTS/Relatorios">Relatórios</a></li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -41,7 +41,7 @@
                                 Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
                             </div>
                         </li>
-                        <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                        <li><a href="/RHACTS/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                       </ul>
                     </div>
                   </nav>

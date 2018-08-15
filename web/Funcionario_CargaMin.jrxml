@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Funcionario_CargaMin" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rhindo"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RHACTS"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" isBold="false"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" isBold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" isBold="true"/>
@@ -49,7 +49,7 @@ and f.ano =  $P{f.ano}]]>
 					<textElement>
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[RHINDO]]></text>
+					<text><![CDATA[RHACTS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="SubTitle" x="10" y="66" width="545" height="29"/>
