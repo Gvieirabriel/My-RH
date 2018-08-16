@@ -86,7 +86,7 @@
                             <option value="2017" selected="true">2017</option>
                         </select>
                         <br/><br/>
-                        <input class="btn btn-primary" type="submit" value="Holerite">
+                        <input class="btn btn-primary" type="submit" value="Folha de pagamento">
                     </form>
                 </div>
                 <br/>
