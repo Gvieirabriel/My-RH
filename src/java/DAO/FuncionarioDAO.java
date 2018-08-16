@@ -29,33 +29,32 @@ public class FuncionarioDAO {
     PreparedStatement stmt4 = null;
     PreparedStatement stmt5 = null;
     ResultSet rs = null;
-    private String cadastrarEndereco = "insert into Funcionario (idEndereco, idCargo, idDepartamento, nomeFuncionario, cpf, rg, celular, email, senha) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private String buscarTodos = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo, c.cargaMinima, c.salario, c.descontoImpostos from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo order by f.idFuncionario";
-    private String buscarPorNome = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.nomeFuncionario like ? order by f.idFuncionario";
-    private String buscarPorId = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo, c.salario, c.cargaMinima, c.descontoImpostos from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.idFuncionario = ?";
+    private String cadastrarEndereco = "insert into Funcionario (idCargo, idDepartamento, nomeFuncionario, cpf, rg, celular, email, senha) values (?, ?, ?, ?, ?, ?, ?, ?)";
+    private String buscarTodos = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo, c.cargaMinima, c.salario, c.descontoImpostos from Funcionario f inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo order by f.idFuncionario";
+    private String buscarPorNome = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.emai, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.nomeFuncionario like ? order by f.idFuncionario";
+    private String buscarPorId = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.nomeDepartamento, c.nomeCargo, c.salario, c.cargaMinima, c.descontoImpostos from Funcionario f inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.idFuncionario = ?";
     private String removerFuncionario = "delete from Funcionario where idFuncionario = ?";
     private String alterarFuncionario = "update Funcionario set idEndereco = ?, idCargo = ?, idDepartamento = ?, nomeFuncionario = ?, cpf = ?, rg = ?, celular = ?, email = ? where idFuncionario = ?";
     private String alterarEndereco = "update Endereco set idUF = ?, rua = ?, numero = ?, bairro = ?, cep = ?, cidade = ? where idEndereco = ?";
     private String getIdUF = "select idUF from UF where sigla = ?";
     private String getIdCargo = "select idCargo from Cargo where nomeCargo = ?";
     private String getIdDepartamento = "select idDepartamento from Departamento where nomeDepartamento = ?";
-    private String buscarLogin = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.email = ? and f.senha = ?";
-    private String buscarPorDepartamento = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where d.idDepartamento = ? and c.idCargo != 1";
+    private String buscarLogin = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo from Funcionario f inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.email = ? and f.senha = ?";
+    private String buscarPorDepartamento = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo from Funcionario f inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where d.idDepartamento = ? and c.idCargo != 1";
 
     
     public void cadastrarFuncionario(Funcionario funcionario) throws SQLException, ClassNotFoundException {
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(cadastrarEndereco);
-            stmt.setInt(1, funcionario.getEndereco().getIdEndereco());
-            stmt.setInt(2, funcionario.getCargo().getIdCargo());
-            stmt.setInt(3, funcionario.getDepartamento().getIdDepartamento());
-            stmt.setString(4, funcionario.getNomeFuncionario());
-            stmt.setString(5, funcionario.getCpf());
-            stmt.setString(6, funcionario.getRg());
-            stmt.setString(7, funcionario.getCelular());
-            stmt.setString(8, funcionario.getEmail());
-            stmt.setString(9, funcionario.getSenha());
+            stmt.setInt(1, funcionario.getCargo().getIdCargo());
+            stmt.setInt(2, funcionario.getDepartamento().getIdDepartamento());
+            stmt.setString(3, funcionario.getNomeFuncionario());
+            stmt.setString(4, funcionario.getCpf());
+            stmt.setString(5, funcionario.getRg());
+            stmt.setString(6, funcionario.getCelular());
+            stmt.setString(7, funcionario.getEmail());
+            stmt.setString(8, funcionario.getSenha());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             out.println("Erro ao cadastrar Funcionario: " + ex.getMessage());
@@ -73,7 +72,6 @@ public class FuncionarioDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Funcionario f = new Funcionario();
-                Endereco e = new Endereco();
                 Departamento d = new Departamento();
                 Cargo c = new Cargo();
                 f.setIdFuncionario(rs.getInt("f.idFuncionario"));
@@ -82,12 +80,6 @@ public class FuncionarioDAO {
                 f.setRg(rs.getString("f.rg"));
                 f.setCelular(rs.getString("f.celular"));
                 f.setEmail(rs.getString("f.email"));
-                e.setRua(rs.getString("e.rua"));
-                e.setNumero(rs.getInt("e.numero"));
-                e.setBairro(rs.getString("e.bairro"));
-                e.setCep(rs.getString("e.cep"));
-                e.setCidade(rs.getString("e.cidade"));
-                e.setUf(rs.getString("u.sigla"));
                 d.setIdDepartamento(rs.getInt("d.idDepartamento"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 c.setIdCargo(rs.getInt("c.idCargo"));
@@ -96,7 +88,6 @@ public class FuncionarioDAO {
                 c.setSalario(rs.getFloat("c.salario"));
                 c.setDescontoImpostos(rs.getInt("c.descontoImpostos"));
                 f.setCargo(c);
-                f.setEndereco(e);
                 f.setDepartamento(d);
                 lista.add(f);
             }
@@ -119,7 +110,6 @@ public class FuncionarioDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Funcionario f = new Funcionario();
-                Endereco e = new Endereco();
                 Departamento d = new Departamento();
                 Cargo c = new Cargo();
                 f.setIdFuncionario(rs.getInt("f.idFuncionario"));
@@ -128,16 +118,9 @@ public class FuncionarioDAO {
                 f.setRg(rs.getString("f.rg"));
                 f.setCelular(rs.getString("f.celular"));
                 f.setEmail(rs.getString("f.email"));
-                e.setRua(rs.getString("e.rua"));
-                e.setNumero(rs.getInt("e.numero"));
-                e.setBairro(rs.getString("e.bairro"));
-                e.setCep(rs.getString("e.cep"));
-                e.setCidade(rs.getString("e.cidade"));
-                e.setUf(rs.getString("u.sigla"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 f.setCargo(c);
-                f.setEndereco(e);
                 f.setDepartamento(d);
                 lista.add(f);
             }
@@ -173,7 +156,6 @@ public class FuncionarioDAO {
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                Endereco e = new Endereco();
                 Departamento d = new Departamento();
                 Cargo c = new Cargo();
                 f.setIdFuncionario(rs.getInt("f.idFuncionario"));
@@ -182,19 +164,12 @@ public class FuncionarioDAO {
                 f.setRg(rs.getString("f.rg"));
                 f.setCelular(rs.getString("f.celular"));
                 f.setEmail(rs.getString("f.email"));
-                e.setRua(rs.getString("e.rua"));
-                e.setNumero(rs.getInt("e.numero"));
-                e.setBairro(rs.getString("e.bairro"));
-                e.setCep(rs.getString("e.cep"));
-                e.setCidade(rs.getString("e.cidade"));
-                e.setUf(rs.getString("u.sigla"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 c.setCargaMinima(rs.getInt("c.cargaMinima"));
                 c.setSalario(rs.getFloat("c.salario"));
                 c.setDescontoImpostos(rs.getInt("c.descontoImpostos"));
                 f.setCargo(c);
-                f.setEndereco(e);
                 f.setDepartamento(d);
             }
             return f;
@@ -210,16 +185,7 @@ public class FuncionarioDAO {
     public void alterarFuncionario(Funcionario funcionario) throws SQLException, ClassNotFoundException {
         try {
             con = ConnectionFactory.getConnection();
-            stmt2 = con.prepareStatement(alterarEndereco);
             stmt5 = con.prepareStatement(alterarFuncionario);
-            stmt2.setInt(1, funcionario.getEndereco().getIdUf());
-            stmt2.setString(2, funcionario.getEndereco().getRua());
-            stmt2.setInt(3, funcionario.getEndereco().getNumero());
-            stmt2.setString(4, funcionario.getEndereco().getBairro());
-            stmt2.setString(5, funcionario.getEndereco().getCep());
-            stmt2.setString(6, funcionario.getEndereco().getCidade());
-            stmt2.setInt(7, funcionario.getIdFuncionario());
-            stmt2.executeUpdate();
             stmt5.setInt(1, funcionario.getIdFuncionario());
             stmt5.setInt(2, funcionario.getCargo().getIdCargo());
             stmt5.setInt(3, funcionario.getDepartamento().getIdDepartamento());
@@ -233,7 +199,6 @@ public class FuncionarioDAO {
         } catch (SQLException ex) {
             out.println("Erro ao alterar Funcionario: " + ex.getMessage());
         } finally {
-            stmt2.close();
             stmt5.close();
             con.close();
         }
@@ -248,7 +213,6 @@ public class FuncionarioDAO {
             stmt.setString(2, senha);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                Endereco e = new Endereco();
                 Departamento d = new Departamento();
                 Cargo c = new Cargo();
                 f.setIdFuncionario(rs.getInt("f.idFuncionario"));
@@ -257,18 +221,11 @@ public class FuncionarioDAO {
                 f.setRg(rs.getString("f.rg"));
                 f.setCelular(rs.getString("f.celular"));
                 f.setEmail(rs.getString("f.email"));
-                e.setRua(rs.getString("e.rua"));
-                e.setNumero(rs.getInt("e.numero"));
-                e.setBairro(rs.getString("e.bairro"));
-                e.setCep(rs.getString("e.cep"));
-                e.setCidade(rs.getString("e.cidade"));
-                e.setUf(rs.getString("u.sigla"));
                 d.setIdDepartamento(rs.getInt("d.idDepartamento"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 c.setIdCargo(rs.getInt("c.idCargo"));
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 f.setCargo(c);
-                f.setEndereco(e);
                 f.setDepartamento(d);
             }
             return f;
@@ -290,7 +247,6 @@ public class FuncionarioDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Funcionario f = new Funcionario();
-                Endereco e = new Endereco();
                 Departamento d = new Departamento();
                 Cargo c = new Cargo();
                 f.setIdFuncionario(rs.getInt("f.idFuncionario"));
@@ -299,18 +255,11 @@ public class FuncionarioDAO {
                 f.setRg(rs.getString("f.rg"));
                 f.setCelular(rs.getString("f.celular"));
                 f.setEmail(rs.getString("f.email"));
-                e.setRua(rs.getString("e.rua"));
-                e.setNumero(rs.getInt("e.numero"));
-                e.setBairro(rs.getString("e.bairro"));
-                e.setCep(rs.getString("e.cep"));
-                e.setCidade(rs.getString("e.cidade"));
-                e.setUf(rs.getString("u.sigla"));
                 d.setIdDepartamento(rs.getInt("d.idDepartamento"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 c.setIdCargo(rs.getInt("c.idCargo"));
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 f.setCargo(c);
-                f.setEndereco(e);
                 f.setDepartamento(d);
                 lista.add(f);
             }

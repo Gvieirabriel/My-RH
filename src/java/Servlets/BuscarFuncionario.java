@@ -57,7 +57,6 @@ public class BuscarFuncionario extends HttpServlet {
             f.setCpfFormatado(f.getCpf());
             f.setRgFormatado(f.getRg());
             f.setCelularFormatado(f.getCelular());
-            f.getEndereco().setCepFormatado(f.getEndereco().getCep());
         }
         request.setAttribute("lista", lista);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/buscar_funcionarios.jsp");

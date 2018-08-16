@@ -62,7 +62,6 @@
                             <th>Celular</th>
                             <th>Departamento</th>
                             <th>Cargo</th>
-                            <th>Endereço</th>
                             <th>Alterar</th>
                             <th>Deletar</th>
                         </tr>
@@ -76,7 +75,6 @@
                                 <td id="celular">${item.celularFormatado}</td>
                                 <td>${item.departamento.nomeDepartamento}</td>
                                 <td>${item.cargo.nomeCargo}</td>
-                                <td>${item.endereco.rua}, ${item.endereco.numero} - ${item.endereco.bairro}, ${item.endereco.cidade} - ${item.endereco.uf} ${item.endereco.cepFormatado}</td>
                                 <td><a href="AlterarFuncionario?fun=<c:out value="${item.idFuncionario}"/>"><span class="glyphicon glyphicon-pencil" name="Alterar" value="Alterar" style="font-size: 1.5vw;"></span></a></td>
                                 <td><a href="RemoverFuncionario?fun=<c:out value="${item.idFuncionario}"/>"><span class="glyphicon glyphicon-remove" name="Remover" value="Remover" onmouseover="this.style.color='#ca0202'" onmouseout="this.style.color='red'" style="color: red; font-size: 1.5vw;"></span></a></td>                                
                             </tr>

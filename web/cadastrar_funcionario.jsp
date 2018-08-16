@@ -64,23 +64,6 @@
                     <br/>
                     <label>Email:</label> <input type="email" class="form-control" name="Email" placeholder="email@example.com">
                     <br/>
-                    <label>Rua:</label> <input type="text" class="form-control" name="Rua" placeholder="Av. das Torres">
-                    <br/>
-                    <label>Número:</label> <input type="text" class="form-control" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="999">
-                    <br/>
-                    <label>Bairro:</label> <input type="text" class="form-control" name="Bairro" placeholder="Jardim das Americas">
-                    <br/>
-                    <label>CEP:</label> <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" placeholder="99999-999">
-                    <br/>
-                    <label>Cidade:</label> <input type="text" class="form-control" name="Cidade" placeholder="Cidade">
-                    <br/>
-                    <label>Estado:</label> 
-                    <select class="form-control" name="Estado">
-                        <c:forEach items="${listaEndereco}" var="uf">
-                            <option value="${uf.idUf}">${uf.uf}</option>
-                        </c:forEach>
-                    </select>
-                    <br/>
                     <label>Departamento:</label> 
                     <select class="form-control" name="Departamento">
                         <c:forEach items="${listaDepartamento}" var="departamento">
