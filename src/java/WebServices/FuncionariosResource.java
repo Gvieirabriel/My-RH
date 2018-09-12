@@ -59,8 +59,8 @@ public class FuncionariosResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscaTodos() throws SQLException, ClassNotFoundException {
-        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-        Funcionario funcionario = new Funcionario();
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+            Funcionario funcionario = new Funcionario();
         Endereco endereco = new Endereco();
         List<Funcionario> funcionarios = new ArrayList<>();
         funcionarios = funcionarioDAO.buscarTodos();

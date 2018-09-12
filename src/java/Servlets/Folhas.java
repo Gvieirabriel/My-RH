@@ -90,7 +90,7 @@ public class Folhas extends HttpServlet {
             Client client = ClientBuilder.newClient();
             FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
             DepartamentoDAO departamentoDAO = new DepartamentoDAO();
-            Response resp = client.target("http://localhost:21836/ATOA/webresources/atividades").request(MediaType.APPLICATION_JSON).get();
+            Response resp = client.target("http://localhost:8080/MYJOBS/webresources/atividades").request(MediaType.APPLICATION_JSON).get();
             lista = resp.readEntity(new GenericType<List<Atividade>>() {});        
             for (Atividade a:lista) {
                 a.setFuncionario(funcionarioDAO.buscarPorId(a.getFuncionario().getIdFuncionario()));
@@ -157,7 +157,7 @@ public class Folhas extends HttpServlet {
                                     }
                                     else {// Se a atividade nao foi encerrada
                                         check = true;
-                                        client.target("http://localhost:21836/ATOA/webresources/aviso").request(MediaType.APPLICATION_JSON).post(Entity.json(f));
+                                        client.target("http://localhost:8080/MYJOBS/webresources/aviso").request(MediaType.APPLICATION_JSON).post(Entity.json(f));
                                     }
                                 }
                             }

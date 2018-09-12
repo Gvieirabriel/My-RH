@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.2.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Holerite_doMes" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5709b48-f73f-43e7-9baf-0b7408988c1b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="f.mes" class="java.lang.Integer"/>
+	<parameter name="f.ano" class="java.lang.Integer"/>
+	<parameter name="fu.idFuncionario" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select fu.nomeFuncionario, f.mes, f.ano, fu.cpf, fu.email, f.horasTrabalhadas, f.salarioBruto, f.salarioLiquido
+from Funcionario fu
+inner join Folha f on fu.idFuncionario = f.idFuncionario
+where f.ano =  $P{f.ano} 
+and f.mes =  $P{f.mes} 
+and fu.idFuncionario =  $P{fu.idFuncionario}]]>
+	</queryString>
+	<field name="nomeFuncionario" class="java.lang.String"/>
+	<field name="mes" class="java.lang.Long"/>
+	<field name="ano" class="java.lang.Long"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="horasTrabalhadas" class="java.lang.Long"/>
+	<field name="salarioBruto" class="java.lang.Float"/>
+	<field name="salarioLiquido" class="java.lang.Float"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#000000" uuid="79227258-b29b-492f-8afa-a3d04bbcdeb9"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="df842f26-3391-4c59-a885-4788321d8c59"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[RHINDO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="2" y="66" width="404" height="29" uuid="b7ba81a8-c6fa-4402-ae9a-e6a0b032272d"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Holerite Do Mês]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="555" height="32" forecolor="#000000" backcolor="#CC0000" uuid="0f037050-4f44-430d-a202-a96454995fcc"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="400" y="10" width="144" height="20" forecolor="#FFFFFF" uuid="c2815f4f-89df-4eb5-9943-094c2a4640e7"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="67" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="-20" y="0" width="595" height="67" uuid="ce4f165e-33c2-43e1-bdf7-4aa225e1eedc"/>
+				<staticText>
+					<reportElement x="20" y="50" width="80" height="17" uuid="05ed7907-7c83-4db6-aa3a-c7fae473ca71"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="100" y="50" width="90" height="17" uuid="de3ab4af-60e8-4b91-9812-984873b33786"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[CPF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="190" y="50" width="120" height="20" uuid="28f57b84-ef33-4edc-b959-8fa1fe55e20a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[E-mail]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="50" width="109" height="17" uuid="f2c26366-77eb-4b4f-b428-ba836c5947ac"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horas Prestadas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="419" y="50" width="81" height="17" uuid="9970e55d-c08f-43ea-9762-5f1377d3956c"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[SalarioBruto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="500" y="50" width="95" height="17" uuid="b209a82f-3b94-4a3c-be99-0d74b3409344"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[SalarioLiquido]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="63" y="0" width="53" height="20" uuid="6b199901-f7ec-4b6c-943f-2fbfb91066b1"/>
+					<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="140" y="0" width="41" height="20" uuid="c062c05c-2143-4d8a-9692-a8d087c7307a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ano]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="180" y="0" width="100" height="21" uuid="d51e0145-d26e-47e6-997b-d1abe6fcac4a"/>
+					<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="0" y="0" width="43" height="20" uuid="a8dbd7d4-edd0-41d6-914a-f8b2b36ed356"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="4674d115-fd74-4112-8cff-acf35ede48e5"/>
+				<textFieldExpression><![CDATA[$F{nomeFuncionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="90" height="20" uuid="22331c0b-6d51-46bd-9997-bc033e22c4ad"/>
+				<textFieldExpression><![CDATA[($F{cpf}.substring(0, 3)+ "." +$F{cpf}.substring(3, 6)+ "." +$F{cpf}.substring(6, 9)+"-"+$F{cpf}.substring(9, 11))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="120" height="20" uuid="aec58af9-6567-4242-bf6f-d4361d99956e"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="110" height="20" uuid="b5bb96e8-ba0b-4c89-9f15-d405165c7d3f"/>
+				<textFieldExpression><![CDATA[($F{horasTrabalhadas}+"h")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="3" width="80" height="17" uuid="2ddb11ac-9556-46ba-a36a-a02e53df1537"/>
+				<textFieldExpression><![CDATA[("R$ "+$F{salarioBruto})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="95" height="20" uuid="410f8564-b084-4566-b8b8-92c6a955ebfc"/>
+				<textFieldExpression><![CDATA[("R$ "+$F{salarioBruto})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="cb856ae6-8860-4dd5-a0d3-5f79df1f3824"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

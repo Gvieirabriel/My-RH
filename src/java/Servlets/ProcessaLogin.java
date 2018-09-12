@@ -44,12 +44,12 @@ public class ProcessaLogin extends HttpServlet {
         PrintWriter out = response.getWriter();
         LoginDAO loginDAO = new LoginDAO();
         Funcionario funcionario = new Funcionario();
-        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+        /*MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
         byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
         StringBuilder hexString = new StringBuilder();
         for (byte b : messageDigest) {
             hexString.append(String.format("%02X", 0xFF & b));
-        }
+        }*/
         String senhac = senha;
         funcionario = loginDAO.lerFuncionario(email, senhac);
         if (funcionario != null) {            

@@ -19,11 +19,10 @@ import java.sql.SQLException;
  * @author guilh
  */
 public class LoginDAO {
-    private String stmtBuscaFuncionario = "SELECT f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.nomeDepartamento, d.localizacao, c.nomeCargo, c.salario, c.requisitos, c.cargaMinima, c.descontoImpostos, e.rua, e.numero, e.bairro, e.cep, e.cidade "
+    private String stmtBuscaFuncionario = "SELECT f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.nomeDepartamento, d.localizacao, c.nomeCargo, c.salario, c.requisitos, c.cargaMinima, c.descontoImpostos "
             + "FROM Funcionario f "
             + "INNER JOIN Departamento d ON f.idDepartamento = d.idDepartamento "
             + "INNER JOIN Cargo c ON f.idCargo = c.idCargo "
-            + "INNER JOIN Endereco e ON f.idEnd = e.id "
             + "WHERE f.email = ? and f.senha = ?";
     
     public Funcionario lerFuncionario (String email, String senha){
@@ -40,7 +39,6 @@ public class LoginDAO {
                 Funcionario f = new Funcionario();
                 Cargo c = new Cargo();
                 Departamento d = new Departamento();
-                Endereco e = new Endereco();
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 c.setSalario(rs.getFloat("c.salario"));
                 c.setRequisitos(rs.getString("c.requisitos"));
@@ -48,11 +46,6 @@ public class LoginDAO {
                 c.setDescontoImpostos(rs.getInt("c.descontoImpostos"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 d.setLocalizacao(rs.getString("d.localizacao"));
-                e.setRua(rs.getString("e.rua"));
-                e.setNumero(rs.getInt("e.numero"));
-                e.setBairro(rs.getString("e.bairro"));
-                e.setCep(rs.getString("e.cep"));
-                e.setCidade(rs.getString("e.cidade"));
                 f.setIdFuncionario(rs.getInt("f.idFuncionario"));
                 f.setNomeFuncionario(rs.getString("f.nomeFuncionario"));
                 f.setCpf(rs.getString("f.cpf"));
@@ -61,7 +54,6 @@ public class LoginDAO {
                 f.setEmail(rs.getString("f.email"));
                 f.setCargo(c);
                 f.setDepartamento(d);
-                f.setEndereco(e);
                 return f;
             }
             return null;

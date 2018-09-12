@@ -55,7 +55,17 @@
             <br/>
             <div class="container " style="width: 28%">
                 <div align="center" class="form-group jumbotron">
-                    <a href="RelatoriosGerente?rel=1"><input class="btn btn-primary" type="submit" value="Relatório Geral de Funcionários"></a>
+                    <form action="RelatoriosGerente">
+                    <input class="btn btn-primary" type="submit" value="Relatório Geral de Funcionários">
+                        <label>Nome: </label>
+                        <select class="form-control" name="funcionario">
+                            <c:forEach items="${listaFuncionario}" var="f">
+                                <option value="${f.idFuncionario}">${f.nomeFuncionario}</option>
+                            </c:forEach>
+                        </select>
+                        <br/><br/>
+                        <input type="hidden" name="rel" value="1">
+                    </form>
                 </div>
                 <div align="center" class="form-group jumbotron">
                     <form action="RelatoriosGerente">
@@ -85,8 +95,11 @@
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
+                        </div>
+                        <div style="flex-flow: row wrap; display: flex;">
+                            <br/><br/>
                             <label>Ano: </label>
-                            <select class="form-control" name="ano" style="width: 32%">
+                            <select class="form-control" name="ano" style="width: 35%">
                                 <option value="2006">2006</option>
                                 <option value="2007">2007</option>
                                 <option value="2008">2008</option>
@@ -98,7 +111,8 @@
                                 <option value="2014">2014</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
-                                <option value="2017" selected="true">2017</option>
+                                <option value="2017">2017</option>
+                                <option value="2018" selected="true">2018</option>
                             </select>
                         </div>
                         <br>

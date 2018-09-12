@@ -6,7 +6,10 @@
 package Servlets;
 
 import Beans.Departamento;
+import Beans.Funcionario;
 import DAO.DepartamentoDAO;
+import DAO.FuncionarioDAO;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -27,7 +30,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
  *
@@ -53,6 +62,10 @@ public class RelatoriosGerente extends HttpServlet {
             rd.forward(request, response);
         }
         if (request.getParameter("rel") == null) {
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+            List<Funcionario> listaFuncionario = new ArrayList<>();
+            listaFuncionario = funcionarioDAO.buscarTodos();
+            request.setAttribute("listaFuncionario", listaFuncionario);
             DepartamentoDAO departamentoDAO = new DepartamentoDAO();
             List<Departamento> lista = new ArrayList<>();
             lista = departamentoDAO.buscarNomes();
@@ -64,17 +77,18 @@ public class RelatoriosGerente extends HttpServlet {
             Connection con = null;
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                con = DriverManager.getConnection("jdbc:mysql://localhost/RHACTS", "root", "1q2w3e4r5");
-                String jasper = request.getContextPath() + "/Todo_funcionarios.jasper";
-                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
-                URL jasperURL = new URL(host + jasper);
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/rh?autoReconnect=true&useSSL=false", "root", "root");
                 HashMap params = new HashMap();
-                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
-                if (bytes != null) {
-                    response.setContentType("application/pdf");
-                    OutputStream ops = response.getOutputStream();
-                    ops.write(bytes);
-                }
+                String jrxml = "/home/gqueiroz/NetBeansProjects/RHACTS/web/Horas_Trabalhadas.jrxml";
+                params.put("fu.idFuncionario", Integer.valueOf(request.getParameter("funcionario")));
+                String jasper = JasperCompileManager.compileReportToFile(jrxml);
+                JasperPrint print = JasperFillManager.fillReport(jasper, params, con);
+                OutputStream saida = response.getOutputStream();
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, saida);
+                exporter.exportReport();
             }
             catch(SQLException e) {
                 request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());
@@ -93,51 +107,20 @@ public class RelatoriosGerente extends HttpServlet {
             Connection con = null;
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                con = DriverManager.getConnection("jdbc:mysql://localhost/RHACTS", "root", "1q2w3e4r5");
-                String jasper = request.getContextPath() + "/Horas_Departamento.jasper";
-                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
-                URL jasperURL = new URL(host + jasper);
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/rh?autoReconnect=true&useSSL=false", "root", "root");
                 HashMap params = new HashMap();
+                String jrxml = "/home/gqueiroz/NetBeansProjects/RHACTS/web/Horas_Departamento.jrxml";
                 params.put("f.mes", Integer.valueOf(request.getParameter("mes")));
                 params.put("f.ano", Integer.valueOf(request.getParameter("ano")));
                 params.put("d.idDepartamento", Integer.valueOf(request.getParameter("departamento")));
-                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
-                if (bytes != null) {
-                    response.setContentType("application/pdf");
-                    OutputStream ops = response.getOutputStream();
-                    ops.write(bytes);
-                }
-            }
-            catch(SQLException e) {
-                request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());
-                request.getRequestDispatcher("erro.jsp").forward(request, response);
-            }
-            catch(JRException e) {
-                request.setAttribute("msg", "Erro no Jasper : " + e.getMessage());
-                request.getRequestDispatcher("erro.jsp").forward(request, response);
-            }
-            finally {
-                if (con!=null)
-                try { con.close(); } catch(Exception e) {}
-            }
-        }
-        else if (request.getParameter("rel").equals("3")) {
-            Connection con = null;
-            try {
-                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                con = DriverManager.getConnection("jdbc:mysql://localhost/RHACTS", "root", "1q2w3e4r5");
-                String jasper = request.getContextPath() + "/Funcionario_CargaMin.jasper";
-                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
-                URL jasperURL = new URL(host + jasper);
-                HashMap params = new HashMap();
-                params.put("f.mes", Integer.valueOf(request.getParameter("mes")));
-                params.put("f.ano", Integer.valueOf(request.getParameter("ano")));
-                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
-                if (bytes != null) {
-                    response.setContentType("application/pdf");
-                    OutputStream ops = response.getOutputStream();
-                    ops.write(bytes);
-                }
+                String jasper = JasperCompileManager.compileReportToFile(jrxml);
+                JasperPrint print = JasperFillManager.fillReport(jasper, params, con);
+                OutputStream saida = response.getOutputStream();
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, saida);
+                exporter.exportReport();
             }
             catch(SQLException e) {
                 request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());

@@ -20,7 +20,7 @@ public class FolhaDAO {Connection con = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
     private String inserirFolha = "insert into Folha (idFuncionario, horasTrabalhadas, mes, ano, salarioLiquido, salarioBruto) values (?, ?, ?, ?, ?, ?)";
-    private String verifica = "select idFolha from Folha where mes = ? and ano = ?";
+    private String verifica = "select mes, ano from Folha where mes = ? and ano = ?";
     
     public void inserirFolha(Folha folha) throws SQLException, ClassNotFoundException {
         try {
@@ -56,7 +56,6 @@ public class FolhaDAO {Connection con = null;
         } finally {
             stmt.close();
             con.close();
-            rs.close();
         }
         return true;
     }
