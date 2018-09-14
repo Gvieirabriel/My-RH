@@ -56,14 +56,14 @@
             <div class="container " style="width: 28%">
                 <div align="center" class="form-group jumbotron">
                     <form action="RelatoriosGerente">
-                    <input class="btn btn-primary" type="submit" value="Relatório Geral de Funcionários">
                         <label>Nome: </label>
                         <select class="form-control" name="funcionario">
                             <c:forEach items="${listaFuncionario}" var="f">
                                 <option value="${f.idFuncionario}">${f.nomeFuncionario}</option>
                             </c:forEach>
                         </select>
-                        <br/><br/>
+                        <br/>
+                        <input class="btn btn-primary" type="submit" value="Relatório Geral de Funcionários">
                         <input type="hidden" name="rel" value="1">
                     </form>
                 </div>
@@ -78,7 +78,7 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <br/><br/>
+                        <br/>
                         <div style="flex-flow: row wrap; display: flex;">
                             <label>Mês: </label>
                             <select class="form-control" name="mes" style="width: 32%; margin-right: 1vw;">
@@ -97,7 +97,6 @@
                             </select>
                         </div>
                         <div style="flex-flow: row wrap; display: flex;">
-                            <br/><br/>
                             <label>Ano: </label>
                             <select class="form-control" name="ano" style="width: 35%">
                                 <option value="2006">2006</option>

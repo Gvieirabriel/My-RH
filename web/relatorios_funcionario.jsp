@@ -50,7 +50,17 @@
             <br/>
             <div class="container " style="width: 28%">
                 <div align="center" class="form-group jumbotron">
-                    <a href="Relatorios?rel=1"><input class="btn btn-primary" type="submit" value="Horas Trabalhadas"></a>
+                    <form action="Relatorios">
+                        <label>Nome: </label>
+                        <select class="form-control" name="funcionario">
+                            <c:forEach items="${listaFuncionario}" var="f">
+                                <option value="${f.idFuncionario}">${f.nomeFuncionario}</option>
+                            </c:forEach>
+                        </select>
+                        <br/>
+                        <input class="btn btn-primary" type="submit" value="Relatório Geral de Funcionários">
+                        <input type="hidden" name="rel" value="1">
+                    </form></a>
                 </div>
                 <div align="center" class="form-group jumbotron">
                     <form action="Relatorios">

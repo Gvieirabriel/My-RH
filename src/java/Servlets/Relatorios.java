@@ -8,6 +8,7 @@ package Servlets;
 import Beans.Departamento;
 import Beans.Funcionario;
 import DAO.DepartamentoDAO;
+import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -28,7 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
  *
@@ -54,6 +61,14 @@ public class Relatorios extends HttpServlet {
             rd.forward(request, response);
         }
         if (request.getParameter("rel") == null) {
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+            List<Funcionario> listaFuncionario = new ArrayList<>();
+            listaFuncionario = funcionarioDAO.buscarTodos();
+            request.setAttribute("listaFuncionario", listaFuncionario);
+            DepartamentoDAO departamentoDAO = new DepartamentoDAO();
+            List<Departamento> lista = new ArrayList<>();
+            lista = departamentoDAO.buscarNomes();
+            request.setAttribute("departamentos", lista);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/relatorios_funcionario.jsp");
             rd.forward(request, response);
         }
@@ -61,20 +76,18 @@ public class Relatorios extends HttpServlet {
             Connection con = null;
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/rh?autoReconnect=true&useSSL=false", "root", "root");
-                String jasper = request.getContextPath() + "/Horas_Trabalhadas.jasper";
-                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
-                URL jasperURL = new URL(host + jasper);
                 HashMap params = new HashMap();
-                Funcionario funcionario = new Funcionario();
-                funcionario = (Funcionario)session.getAttribute("funcionario");
-                params.put("fu.idFuncionario", funcionario.getIdFuncionario());
-                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
-                if (bytes != null) {
-                    response.setContentType("application/pdf");
-                    OutputStream ops = response.getOutputStream();
-                    ops.write(bytes);
-                }
+                String jrxml = "/home/gqueiroz/NetBeansProjects/RHACTS/web/Horas_Trabalhadas.jrxml";
+                params.put("fu.idFuncionario", Integer.valueOf(request.getParameter("funcionario")));
+                String jasper = JasperCompileManager.compileReportToFile(jrxml);
+                JasperPrint print = JasperFillManager.fillReport(jasper, params, con);
+                OutputStream saida = response.getOutputStream();
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, saida);
+                exporter.exportReport();
             }
             catch(SQLException e) {
                 request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());
@@ -94,7 +107,7 @@ public class Relatorios extends HttpServlet {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/rh?autoReconnect=true&useSSL=false", "root", "root");
-                String jasper = request.getContextPath() + "/Holerite_doMes.jasper";
+                String jasper = request.getContextPath() + "/Holerite_doMes.jrxml";
                 String host = "http://" + request.getServerName() + ":" + request.getServerPort();
                 URL jasperURL = new URL(host + jasper);
                 HashMap params = new HashMap();
