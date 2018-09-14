@@ -70,28 +70,6 @@
                     <label>Email:</label> 
                     <input type="email" class="form-control" name="Email" value="${funcionario.email}">
                     <br/>
-                    <label>Rua:</label> 
-                    <input type="text" class="form-control" name="Rua" value="${funcionario.endereco.rua}">
-                    <br/>
-                    <label>Número:</label> 
-                    <input type="text" class="form-control" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="${funcionario.endereco.numero}">
-                    <br/>
-                    <label>Bairro:</label> 
-                    <input type="text" class="form-control" name="Bairro" value="${funcionario.endereco.bairro}">
-                    <br/>
-                    <label>CEP:</label> 
-                    <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" value="${funcionario.endereco.cepFormatado}">
-                    <br/>
-                    <label>Cidade:</label> 
-                    <input type="text" class="form-control" name="Cidade" value="${funcionario.endereco.cidade}">
-                    <br/>
-                    <label>Estado:</label> 
-                    <select class="form-control" name="Estado">
-                        <c:forEach items="${listaEndereco}" var="uf">
-                            <option value="${uf.idUf}">${uf.uf}</option>
-                        </c:forEach>
-                    </select>
-                    <br/>
                     <label>Departamento:</label> 
                     <select class="form-control" name="Departamento">
                         <c:forEach items="${listaDepartamento}" var="departamento">

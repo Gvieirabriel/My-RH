@@ -71,7 +71,6 @@ public class AlterarFuncionario extends HttpServlet {
             funcionario.setCpfFormatado(funcionario.getCpf());
             funcionario.setRgFormatado(funcionario.getRg());
             funcionario.setCelularFormatado(funcionario.getCelular());
-            funcionario.getEndereco().setCepFormatado(funcionario.getEndereco().getCep());
             request.setAttribute("listaDepartamento", listaDepartamentos);
             request.setAttribute("listaCargo", listaCargos);
             request.setAttribute("listaEndereco", listaEnderecos);
@@ -81,14 +80,6 @@ public class AlterarFuncionario extends HttpServlet {
         }
         else {
             try{
-                endereco.setRua(request.getParameter("Rua"));
-                endereco.setNumero(Integer.valueOf(request.getParameter("Numero")));
-                endereco.setBairro(request.getParameter("Bairro"));
-                String cep = request.getParameter("Cep").replaceAll("[^\\d.]+", "");
-                cep = cep.replaceAll("[.]","");
-                endereco.setCep(cep);
-                endereco.setCidade(request.getParameter("Cidade"));
-                endereco.setIdUf(Integer.valueOf(request.getParameter("Estado")));
                 departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Departamento")));
                 cargo.setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
                 funcionario.setIdFuncionario(Integer.valueOf(request.getParameter("Id")));
@@ -103,10 +94,9 @@ public class AlterarFuncionario extends HttpServlet {
                 celular = celular.replaceAll("[.]","");
                 funcionario.setCelular(celular);
                 funcionario.setEmail(request.getParameter("Email"));
-                funcionario.setEndereco(endereco);
                 funcionario.setDepartamento(departamento);
                 funcionario.setCargo(cargo);
-                if (funcionario.validaFuncionarioAlterar(funcionario) && endereco.validaEndereco(endereco)) {
+                if (funcionario.validaFuncionarioAlterar(funcionario)) {
                     funcionarioDAO.alterarFuncionario(funcionario);
                     request.setAttribute("msg", "Funcionário " + funcionario.getNomeFuncionario() + " alterado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
@@ -115,11 +105,6 @@ public class AlterarFuncionario extends HttpServlet {
             }
             catch (Exception e) {
                 request.setAttribute("msg", "Valores Invalidos!");
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-                rd.forward(request, response);
-            }
-            finally {
-                request.setAttribute("msg", "Valores Inválidos!");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                 rd.forward(request, response);
             }

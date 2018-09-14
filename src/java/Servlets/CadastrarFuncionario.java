@@ -75,17 +75,6 @@ public class CadastrarFuncionario extends HttpServlet {
         }
         else {
             try {
-                endereco.setRua(request.getParameter("Rua"));
-                endereco.setNumero(Integer.valueOf(request.getParameter("Numero")));
-                endereco.setBairro(request.getParameter("Bairro"));
-                String cep = request.getParameter("Cep").replaceAll("[^\\d.]+", "");
-                cep = cep.replaceAll("[.]","");
-                endereco.setCep(cep);
-                endereco.setCidade(request.getParameter("Cidade"));
-                endereco.setIdUf(Integer.valueOf(request.getParameter("Estado")));
-                enderecoDAO.cadastrarEndereco(endereco);
-                int idEndereco = enderecoDAO.buscarIdEndereco();
-                endereco.setIdEndereco(idEndereco);
                 departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Departamento")));
                 cargo.setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
                 funcionario.setNomeFuncionario(request.getParameter("Nome"));
@@ -99,7 +88,6 @@ public class CadastrarFuncionario extends HttpServlet {
                 celular = celular.replaceAll("[.]","");
                 funcionario.setCelular(celular);
                 funcionario.setEmail(request.getParameter("Email"));
-                funcionario.setEndereco(endereco);
                 funcionario.setDepartamento(departamento);
                 funcionario.setCargo(cargo);
                 if (request.getParameter("Senha") == null || request.getParameter("Senha").equals("")) {
@@ -107,15 +95,9 @@ public class CadastrarFuncionario extends HttpServlet {
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                     rd.forward(request, response);
                 }
-                MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
-                byte messageDigest[] = algorithm.digest(request.getParameter("Senha").getBytes("UTF-8"));
-                StringBuilder hexString = new StringBuilder();
-                for (byte b : messageDigest) {
-                    hexString.append(String.format("%02X", 0xFF & b));
-                }
-                String senha = hexString.toString();
+                String senha = request.getParameter("Senha");
                 funcionario.setSenha(senha);
-                if (funcionario.validaFuncionario(funcionario) && endereco.validaEndereco(endereco)) {
+                if (funcionario.validaFuncionario(funcionario)) {
                     funcionarioDAO.cadastrarFuncionario(funcionario);
                     request.setAttribute("msg", "Funcionário " + funcionario.getNomeFuncionario() + " cadastrado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
@@ -126,11 +108,6 @@ public class CadastrarFuncionario extends HttpServlet {
                 request.setAttribute("msg", "Valores inválidos!");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                 rd.forward(request, response);                
-            }
-            finally {
-                request.setAttribute("msg", "Valores inválidos!");
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-                rd.forward(request, response);
             }
         }
     }

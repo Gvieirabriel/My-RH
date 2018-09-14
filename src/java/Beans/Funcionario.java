@@ -150,9 +150,7 @@ public class Funcionario implements Serializable {
             return false;
         if (funcionario.getCpf().length() != 11)
             return false;
-        if (funcionario.getEndereco().getCep().length() != 8)
-            return false;
-        if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("")|| funcionario.getEndereco() == null || funcionario.getNomeFuncionario().equals("") || funcionario.getSenha().equals(""))
+        if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("") || funcionario.getNomeFuncionario().equals("") || funcionario.getSenha().equals(""))
             return false;
         return funcionario.getRg().length() == 9;
     }
@@ -162,9 +160,7 @@ public class Funcionario implements Serializable {
             return false;
         if (funcionario.getCpf().length() != 11)
             return false;
-        if (funcionario.getEndereco().getCep().length() != 8)
-            return false;
-        if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("")|| funcionario.getEndereco() == null || funcionario.getNomeFuncionario().equals(""))
+        if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("") || funcionario.getNomeFuncionario().equals(""))
             return false;
         return funcionario.getRg().length() == 9;
     }
