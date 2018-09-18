@@ -16,12 +16,12 @@
 	<parameter name="f.ano" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select f.mes, f.ano, fu.nomeFuncionario, c.cargaMinima, f.horasTrabalhadas 
-from Funcionario fu
-inner join Folha f on f.idFuncionario = fu.idFuncionario
-inner join Cargo c on c.idCargo = fu.idCargo
-where f.horasTrabalhadas < c.cargaMinima
-and f.mes =  $P{f.mes} 
-and f.ano =  $P{f.ano}]]>
+		from Funcionario fu
+		inner join Folha f on f.idFuncionario = fu.idFuncionario
+		inner join Cargo c on c.idCargo = fu.idCargo
+		where f.horasTrabalhadas < c.cargaMinima
+		and f.mes =  $P{f.mes} 
+		and f.ano =  $P{f.ano}]]>
 	</queryString>
 	<field name="mes" class="java.lang.Long"/>
 	<field name="ano" class="java.lang.Long"/>
