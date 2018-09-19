@@ -105,23 +105,23 @@ public class Relatorios extends HttpServlet {
         else if (request.getParameter("rel").equals("2")) {
             Connection con = null;
             try {
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/rh?autoReconnect=true&useSSL=false", "root", "root");
-                String jasper = request.getContextPath() + "/Holerite_doMes.jrxml";
-                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
-                URL jasperURL = new URL(host + jasper);
+                String jrxml = "/home/gqueiroz/NetBeansProjects/RHACTS/web/Holerite_doMes.jrxml";
                 HashMap params = new HashMap();
                 Funcionario funcionario = new Funcionario();
                 funcionario = (Funcionario)session.getAttribute("funcionario");
                 params.put("fu.idFuncionario", funcionario.getIdFuncionario());
                 params.put("f.mes", Integer.valueOf(request.getParameter("mes")));
                 params.put("f.ano", Integer.valueOf(request.getParameter("ano")));
-                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
-                if (bytes != null) {
-                    response.setContentType("application/pdf");
-                    OutputStream ops = response.getOutputStream();
-                    ops.write(bytes);
-                }
+                String jasper = JasperCompileManager.compileReportToFile(jrxml);
+                JasperPrint print = JasperFillManager.fillReport(jasper, params, con);
+                OutputStream saida = response.getOutputStream();
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, saida);
+                exporter.exportReport();
             }
             catch(SQLException e) {
                 request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());

@@ -208,9 +208,11 @@ public class Folhas extends HttpServlet {
             rd.forward(request, response);
         }
         else
+        {
             request.setAttribute("msg", "Folhas fechada com sucesso!");
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
-        rd.forward(request, response);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
